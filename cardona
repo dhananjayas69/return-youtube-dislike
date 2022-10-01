@@ -1,0 +1,15 @@
+await page.goto(websites[i])
+  await sleep(200)
+  await page.type('input[name=email]', email, {delay: 20})
+  await page.type('input[name=password]', pass, {delay: 20})
+  const element_log = await select(page).getElement('button:contains(LOGIN!)');
+  await element_log.click()
+  await page.waitForNavigation();  
+  await autoScroll(page);
+  const element_roll = await select(page).getElement('button:contains(ROLL!)');
+  await element_roll.click()
+  await sleep(3000);
+  // Get inner HTMLs
+  const innerReward = await page.evaluate(() => document.querySelector('.result').innerText);
+  const innerBalance = await page.evaluate(() => document.querySelector('.navbar-coins').innerText);
+  var balance = innerReward + "\nBalance:                 " + innerBalance
